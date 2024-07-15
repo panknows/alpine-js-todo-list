@@ -1,12 +1,12 @@
 import Alpine from 'alpinejs'
 
-import State from '~/state'
+import { TodosStore } from '~/store'
 
-import '~/assets/styles/style.css'
+import '~/assets/styles/style.scss'
  
 window.Alpine = Alpine
 
-Alpine.data('state', State)
+Alpine.store('todos', TodosStore)
 
 Alpine.start()
 

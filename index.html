@@ -7,7 +7,28 @@
     <title>Todo-list Alpine.js</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div x-data class="app">
+      <form class="app__form" x-data="{ title: null }" x-on:submit.prevent="$store.todos.create({ title }).then(() => title = null)">
+        <div class="app__form-input">
+          <input type="text" x-model="title" required>
+        </div>
+        <button>Add</button>
+      </form>
+      <div class="app__list">
+        <template x-for="(todo, index) in $store.todos.items" x-bind:key="todo.id">
+          <div class="todo" x-bind:class="{ '_checked': todo.checked }">
+            <div class="todo__start">
+              <span x-text="'#' + todo.id" class="todo__id"></span>
+              <h2 x-text="todo.title" class="todo__title"></h2>
+            </div>
+            <div class="todo__end">
+              <input type="checkbox" x-model="todo.checked" />
+              <button class="_size-small" x-on:click="$store.todos.remove(todo.id)">✕</button>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
     <script defer type="module" src="./src/main.js"></script>
   </body>
 </html>
